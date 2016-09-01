@@ -62,11 +62,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
-<<<<<<< HEAD
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public List<User> getUsers() {
         return this.userService.getAllUsers();
-=======
+
     @RequestMapping(value = "/exercises", method = RequestMethod.POST)
     public ResponseEntity<?> createExercise(@RequestBody Exercise e, Principal user) {
         int uid = ((JwtToken)user).getUserId();
@@ -84,7 +83,6 @@ public class UserController {
         int uid = ((JwtToken)user).getUserId();
         User u = userService.findUserById(uid);
         return u.getExercises();
->>>>>>> 56301af105540444174ebd591c74fbca0893ae9b
     }
 
     @RequestMapping(value = "/exercises/{exerciseId}", method = RequestMethod.DELETE)
