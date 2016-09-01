@@ -14,10 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -81,5 +78,16 @@ public class UserController {
         int uid = ((JwtToken)user).getUserId();
         User u = userService.findUserById(uid);
         return u.getExercises();
+    }
+
+    @RequestMapping(value = "/exercises/{exerciseId}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteExercise(Principal user, @PathVariable int exerciseId) {
+        int uid = ((JwtToken)user).getUserId();
+        User u = userService.findUserById(uid);
+        Exercise targetExercise = u.getExercises().get(exerciseId - 1);
+        u.getExercises().remove(targetExercise);
+        userService.saveUser(u);
+
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 }
