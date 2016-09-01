@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -56,5 +57,10 @@ public class UserController {
 
         User savedUser = userService.saveUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public List<User> getUsers() {
+        return this.userService.getAllUsers();
     }
 }
