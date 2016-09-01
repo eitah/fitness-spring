@@ -26,6 +26,7 @@ public class User implements UserDetails {
     private Profile profile;
     private Date created;
     private Date modified;
+    private List<Exercise> exercises;
 
     @Id
     @GeneratedValue
@@ -51,6 +52,15 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     public List<Role> getRoles() {return roles;}
     public void setRoles(List<Role> roles) {this.roles = roles;}
+
+
+    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "user")
+    public List<Exercise> getExercises() {
+        return exercises;
+    }
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
+    }
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     public Profile getProfile() {return profile;}
