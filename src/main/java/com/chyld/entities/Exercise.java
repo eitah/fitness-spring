@@ -65,7 +65,7 @@ public class Exercise {
         this.duration = duration;
     }
 
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
     @JsonIgnore
     public User getUser() {return user;}

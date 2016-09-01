@@ -56,7 +56,7 @@ public class User implements UserDetails {
     public void setRoles(List<Role> roles) {this.roles = roles;}
 
 
-    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     public List<Exercise> getExercises() {
         return exercises;
     }
