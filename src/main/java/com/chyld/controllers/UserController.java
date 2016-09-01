@@ -68,8 +68,9 @@ public class UserController {
     public ResponseEntity<?> createExercise(@RequestBody Exercise e, Principal user) {
         int uid = ((JwtToken)user).getUserId();
         User u = userService.findUserById(uid);
-
+        e.setUser(u);
         u.getExercises().add(e);
+
         userService.saveUser(u);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
