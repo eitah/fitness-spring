@@ -1,5 +1,6 @@
 package com.chyld.services;
 
+import com.chyld.entities.Exercise;
 import com.chyld.entities.User;
 import com.chyld.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,18 @@ public class UserService implements UserDetailsService {
     public List<User> getAllUsers()
     {
         return (List<User>) this.repository.findAll();
+    }
+
+    public Exercise getExerciseByUserIdandExerciseId(int id, int exerciseID) {
+        User u = this.findUserById(id);
+        List<Exercise> exercises = u.getExercises();
+
+        for (Exercise e : exercises ) {
+            if (e.getId() == exerciseID) {
+                return e;
+            }
+        }
+
+        return (new Exercise());
     }
 }

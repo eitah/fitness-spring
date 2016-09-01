@@ -65,6 +65,7 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<User> getUsers() {
         return this.userService.getAllUsers();
+    }
 
     @RequestMapping(value = "/exercises", method = RequestMethod.POST)
     public ResponseEntity<?> createExercise(@RequestBody Exercise e, Principal user) {
@@ -89,7 +90,9 @@ public class UserController {
     public ResponseEntity<?> deleteExercise(Principal user, @PathVariable int exerciseId) {
         int uid = ((JwtToken)user).getUserId();
         User u = userService.findUserById(uid);
-        Exercise targetExercise = u.getExercises().get(exerciseId - 1);
+
+        Exercise targetExercise = userService.getExerciseByUserIdandExerciseId(uid, exerciseId);
+
         u.getExercises().remove(targetExercise);
         userService.saveUser(u);
 
