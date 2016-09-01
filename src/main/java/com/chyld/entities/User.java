@@ -26,7 +26,9 @@ public class User implements UserDetails {
     private Profile profile;
     private Date created;
     private Date modified;
+    private int numInvalidLogins;
     private List<Exercise> exercises;
+
 
     @Id
     @GeneratedValue
@@ -93,4 +95,8 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {return this.enabled;}
     public void setEnabled(boolean enabled) {this.enabled = enabled;}
+
+    @Column(name = "numInvalidLogins",nullable = false, columnDefinition = "int(11) default 0")
+    public int getNumInvalidLogins() {return numInvalidLogins;}
+    public void setNumInvalidLogins(int numInvalidLogins) {this.numInvalidLogins = numInvalidLogins;}
 }
